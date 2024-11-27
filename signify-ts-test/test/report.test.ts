@@ -24,18 +24,18 @@ export const UNFOLDERED_TYPE = "unfoldered";
 export const UNZIPPED_TYPE = "unzipped";
 export const FAIL_TYPE = "fail";
 
-let env: TestEnvironment;
+let env: TestEnvironment = resolveEnvironment();
 
 const tempDir = "temp_reports";
 const tempPath = path.join(__dirname, tempDir);
 const secretsJsonPath = "../src/config/";
 const tempExtManifestDir = "temp_manifest";
 
-afterAll(async () => {
-  deleteReportsDir(tempPath);
-});
+// afterAll(async () => {
+//   deleteReportsDir(tempPath);
+// });
 
-beforeAll(async () => {});
+// beforeAll(async () => {});
 
 // Function to create a report dir
 function createReportsDir(repDir: string): void {

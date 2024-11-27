@@ -183,16 +183,21 @@ export async function getOrCreateClient(
   bran: string | undefined = undefined,
   getOnly: boolean = false,
 ): Promise<SignifyClient> {
+  console.log("we getting or creating clients");
   const env = resolveEnvironment();
   await ready();
   bran ??= randomPasscode();
   bran = bran.padEnd(21, "_");
   const client = new SignifyClient(env.url, bran, Tier.low, env.bootUrl);
   try {
+    console.log("We connecting");
     await client.connect();
+    console.log("We connected");
   } catch (e: any) {
+    console.log("Uh oh, second We connecting");
     if (!getOnly) {
       const res = await client.boot();
+      console.log("We booted");
       if (!res.ok) throw new Error();
       await client.connect();
     } else {

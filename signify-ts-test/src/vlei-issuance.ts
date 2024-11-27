@@ -1,14 +1,11 @@
 import { strict as assert } from "assert";
 import signify, {
   Saider,
-  CredentialSubject,
-  CredentialData,
   CreateIdentiferArgs,
   randomNonce,
   Salter,
   HabState,
   SignifyClient,
-  Dict,
 } from "signify-ts";
 import {
   resolveOobi,
@@ -26,8 +23,6 @@ import {
   waitForCredential,
   admitSinglesig,
   waitAndMarkNotification,
-  assertOperations,
-  warnNotifications,
   Aid,
   sleep,
   revokeCredential,
@@ -37,7 +32,6 @@ import {
   admitMultisig,
   createAIDMultisig,
   createRegistryMultisig,
-  delegateMultisig,
   grantMultisig,
   issueCredentialMultisig,
   multisigRevoke,
@@ -63,8 +57,7 @@ import {
   buildUserData,
   buildCredentials,
 } from "./utils/handle-json-config";
-import fs from "fs";
-import path from "path";
+
 import { buildTestData, EcrTestData } from "./utils/generate-test-data";
 import { ApiUser } from "../test/utils/test-data";
 
@@ -105,6 +98,7 @@ export class VleiIssuance {
     this.credentialsInfo = await buildCredentials(this.configJson);
 
     await this.createClients();
+    console.log("clients created");
     await this.createAids();
     await this.fetchOobis();
     await this.createContacts();

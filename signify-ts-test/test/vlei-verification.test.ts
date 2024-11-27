@@ -14,14 +14,14 @@ import { buildUserData } from "../src/utils/handle-json-config";
 const secretsJsonPath = "../src/config/";
 const ECR_SCHEMA_SAID = "EEy9PkikFcANV1l7EHukCeXqrzT1hNZjGlUk7wuMO5jw";
 
-let env: TestEnvironment;
+let env: TestEnvironment = resolveEnvironment();
 let users: Array<ApiUser>;
 
-afterEach(async () => {});
+// afterEach(async () => {});
 
-beforeAll(async () => {
-  env = resolveEnvironment();
-});
+// beforeAll(async () => {
+//   env = resolveEnvironment();
+// });
 
 // This test assumes you have run a vlei test that sets up the
 // role identifiers and Credentials.

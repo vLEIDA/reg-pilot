@@ -21,9 +21,9 @@ export async function getConfig(configFilePath: string, bankTest = false) {
   if (bankTest) {
     dirPath = "../data/600-banks-test-data/";
   }
-  const configJson = JSON.parse(
-    fs.readFileSync(path.join(__dirname, dirPath) + configFilePath, "utf-8"),
-  );
+  const config_path = path.join(__dirname, dirPath) + configFilePath;
+  const config_file_contents = fs.readFileSync(config_path, "utf-8");
+  const configJson = JSON.parse(config_file_contents);
   return configJson;
 }
 

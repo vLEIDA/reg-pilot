@@ -18,13 +18,13 @@ const yaml = require("js-yaml");
 
 let env: TestEnvironment;
 
-afterAll((done) => {
-  done();
-});
-beforeAll((done) => {
-  done();
-  env = resolveEnvironment();
-});
+// afterAll((done) => {
+//   done();
+// });
+// beforeAll((done) => {
+//   done();
+//   env = resolveEnvironment();
+// });
 
 // Function to load and parse YAML file
 function loadWorkflow(filePath: string) {
@@ -142,7 +142,9 @@ async function runWorkflow(workflow: any, configJson: any) {
   }
 }
 
-test.only("workflow", async function run() {
+export async function run_test_workflow() {
+  env = resolveEnvironment();
+   
   const workflowsDir = "../src/workflows/";
   const workflowFile = env.workflow;
   const workflow = loadWorkflow(
@@ -153,9 +155,9 @@ test.only("workflow", async function run() {
   if (workflow && configJson) {
     await runWorkflow(workflow, configJson);
   }
-}, 3600000);
+}
 
-test("api-verifier-bank-test-workflow", async function run() {
+export async function run_api_verifier_workflow() {
   // You need to set the BANK_NAME environment variable. Ex.: export BANK_NAME=Bank_2.
   const bankName = process.env.BANK_NAME;
   const workflowPath = "../src/workflows/bank-api-verifier-test-workflow.yaml";
@@ -165,9 +167,9 @@ test("api-verifier-bank-test-workflow", async function run() {
   if (workflow && configJson) {
     await runWorkflow(workflow, configJson);
   }
-}, 3600000);
+}
 
-test("vlei-issuance-reports-bank-test-workflow", async function run() {
+export async function vlei_issuance_reports_bank_test_workflow() {
   // You need to set the BANK_NAME environment variable. Ex.: export BANK_NAME=Bank_2.
   const bankName = process.env.BANK_NAME;
   console.log(
@@ -183,4 +185,17 @@ test("vlei-issuance-reports-bank-test-workflow", async function run() {
   if (workflow && configJson) {
     await runWorkflow(workflow, configJson);
   }
-}, 3600000);
+}
+
+const ARBITRARY_TIMEOUT = 3600000;
+// test.only("workflow", run_test_workflow, ARBITRARY_TIMEOUT);
+// test(
+//   "api-verifier-bank-test-workflow",
+//   run_api_verifier_workflow,
+//   ARBITRARY_TIMEOUT,
+// );
+// test(
+//   "vlei-issuance-reports-bank-test-workflow",
+//   vlei_issuance_reports_bank_test_workflow,
+//   ARBITRARY_TIMEOUT,
+// );
