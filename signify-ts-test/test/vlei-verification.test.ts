@@ -15,15 +15,15 @@ import { ApiAdapter } from "../src/api-adapter";
 const secretsJsonPath = "../src/config/";
 const ECR_SCHEMA_SAID = "EEy9PkikFcANV1l7EHukCeXqrzT1hNZjGlUk7wuMO5jw";
 
-let env: TestEnvironment;
+let env: TestEnvironment = resolveEnvironment();
 let apiAdapter: ApiAdapter;
 
-afterEach(async () => {});
+// afterEach(async () => {});
 
-beforeAll(async () => {
-  env = resolveEnvironment();
-  apiAdapter = new ApiAdapter(env.apiBaseUrl);
-});
+// beforeAll(async () => {
+//   env = resolveEnvironment();
+//   apiAdapter = new ApiAdapter(env.apiBaseUrl);
+// });
 
 // This test assumes you have run a vlei test that sets up the
 // role identifiers and Credentials.

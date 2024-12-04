@@ -1,23 +1,13 @@
-import { VleiIssuance } from "../src/vlei-issuance";
 import path from "path";
-import { getOrCreateClients } from "./utils/test-util";
 import { resolveEnvironment, TestEnvironment } from "./utils/resolve-env";
-import { buildAidData } from "../src/utils/handle-json-config";
-import { generate_reports } from "./report.test";
-import {
-  ApiUser,
-  getApiTestData,
-  getConfig,
-  getReportGenTestData,
-} from "./utils/test-data";
-import { run_api_revocation_test, run_api_test } from "./reg-pilot-api.test";
-import { run_vlei_verification_test } from "./vlei-verification.test";
+import { getConfig } from "./utils/test-data";
 import { runWorkflow } from "./utils/run-workflow";
 
-const fs = require("fs");
-const yaml = require("js-yaml");
+import fs from "fs";
+import yaml from "js-yaml";
+import { exit } from "process";
 
-let env: TestEnvironment;
+let env: TestEnvironment = resolveEnvironment();
 
 // afterAll((done) => {
 //   done();
@@ -38,7 +28,7 @@ function loadWorkflow(filePath: string) {
   }
 }
 
-test.only("workflow", async function run() {
+export async function runTestWorkflow() {
   const workflowsDir = "../src/workflows/";
   const workflowFile = env.workflow;
   const workflow = loadWorkflow(
@@ -49,6 +39,6 @@ test.only("workflow", async function run() {
   if (workflow && configJson) {
     await runWorkflow(workflow, configJson);
   }
-}, 3600000);
+}
 
-
+// test.only("workflow", runTestWorkflow, 3600000);

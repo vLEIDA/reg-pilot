@@ -1,31 +1,27 @@
 import { VleiIssuance } from "../../src/vlei-issuance";
 import path from "path";
 import { getOrCreateClients } from "./test-util";
-import { resolveEnvironment, TestEnvironment } from "./resolve-env";
+import { resolveEnvironment } from "./resolve-env";
 import { buildAidData } from "../../src/utils/handle-json-config";
 import { generate_reports } from "../report.test";
 import {
   ApiUser,
   getApiTestData,
-  getConfig,
   getReportGenTestData,
 } from "./test-data";
 import { run_api_revocation_test, run_api_test } from "../reg-pilot-api.test";
 import { run_vlei_verification_test } from "../vlei-verification.test";
 
-const fs = require("fs");
-const yaml = require("js-yaml");
-
 // Function to load and parse YAML file
-function loadWorkflow(filePath: string) {
-  try {
-    const file = fs.readFileSync(filePath, "utf8");
-    return yaml.load(file);
-  } catch (e) {
-    console.error("Error reading YAML file:", e);
-    return null;
-  }
-}
+// function loadWorkflow(filePath: string) {
+//   try {
+//     const file = fs.readFileSync(filePath, "utf8");
+//     return yaml.load(file);
+//   } catch (e) {
+//     console.error("Error reading YAML file:", e);
+//     return null;
+//   }
+// }
 
 export async function runWorkflow(workflow: any, configJson: any) {
   let executedSteps = new Set();
