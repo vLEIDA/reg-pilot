@@ -16,7 +16,7 @@ const secretsJsonPath = "../src/config/";
 const ECR_SCHEMA_SAID = "EEy9PkikFcANV1l7EHukCeXqrzT1hNZjGlUk7wuMO5jw";
 
 let env: TestEnvironment = resolveEnvironment();
-let apiAdapter: ApiAdapter;
+let apiAdapter: ApiAdapter = new ApiAdapter(env.apiBaseUrl);
 
 // afterEach(async () => {});
 
