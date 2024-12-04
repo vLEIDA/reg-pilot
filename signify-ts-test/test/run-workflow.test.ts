@@ -41,4 +41,4 @@ export async function runTestWorkflow() {
   }
 }
 
-// test.only("workflow", runTestWorkflow, 3600000);
+test.only("workflow", runTestWorkflow, 3600000);
