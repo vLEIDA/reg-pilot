@@ -344,21 +344,21 @@ function generateBankConfig(bankId: number) {
           type: "generate_report",
           aid: "ecr-aid-1",
           description: "Generating reports for ecr-aid-1 user",
-          copy_folder: `600-banks-test-data/Bank_${bankId}/reports/ecr1`,
+          copy_folder: `600-banks-test-data/Bank_${bankId}/reports`,
         },
         gen_report_ecr2: {
           id: "gen_report_ecr2",
           type: "generate_report",
           aid: "ecr-aid-2",
           description: "Generating reports for ecr-aid-2 user",
-          copy_folder: `600-banks-test-data/Bank_${bankId}/reports/ecr2`,
+          copy_folder: `600-banks-test-data/Bank_${bankId}/reports`,
         },
         gen_report_ecr3: {
           id: "gen_report_ecr3",
           type: "generate_report",
           aid: "ecr-aid-3",
           description: "Generating reports for ecr-aid-3 user",
-          copy_folder: `600-banks-test-data/Bank_${bankId}/reports/ecr3`,
+          copy_folder: `600-banks-test-data/Bank_${bankId}/reports`,
         },
       },
     },
@@ -396,7 +396,7 @@ function generateBankConfig(bankId: number) {
 
 test("generate-bank-workflows", async function run() {
   // Generate configs and workflows for each bank
-  const amount = 5;
+  const amount = 10;
   for (let i = 1; i < amount + 1; i++) {
     generateBankConfig(i);
   }
