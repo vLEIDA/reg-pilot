@@ -86,6 +86,7 @@ async function single_user_test(user: ApiUser) {
   );
   const signedReports = getSignedReports(signedDirPrefixed);
   failDirPrefixed = path.join(__dirname, "data", failDir, user.ecrAid.prefix);
+
   let ppath = "/ping";
   let preq = { method: "GET", body: null };
   let presp = await fetch(env.apiBaseUrl + ppath, preq);
@@ -496,10 +497,6 @@ async function revoked_cred_upload_test(
   console.log("ping response", presp);
   assert.equal(presp.status, 200);
 
-  console.log("=== ecr_cred_prev_state.creds[0] ===");
-  console.log(ecr_cred_prev_state.creds[0]);
-  process.exit(-1)
-
   // 1st case. Presenting non revoked credential
   // TODO: update login with new /revoke_credential endpoint call
   await login(
@@ -774,6 +771,8 @@ async function login(user: ApiUser, cred: any, credCesr: any) {
     body: JSON.stringify(lbody),
   };
   let lpath = `/login`;
+  console.log(env.apiBaseUrl, lpath, lreq);
+  process.exit(-1)
   const lresp = await fetch(env.apiBaseUrl + lpath, lreq);
   console.log("login response", lresp);
   if (isEbaDataSubmitter(cred, user.ecrAid.prefix)) {

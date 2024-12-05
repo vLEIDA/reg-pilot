@@ -97,6 +97,7 @@ export async function runWorkflow(workflow: any, configJson: any) {
       );
     } else if (step.type == "api_test") {
       console.log(`Executing: ${step.description}`);
+      // revoked logins
       if (step.test_case == "revoked_cred_upload_test") {
         const apiUsers = await getApiTestData(configJson, env, step.aids);
         const aidData = await buildAidData(configJson);
@@ -117,10 +118,12 @@ export async function runWorkflow(workflow: any, configJson: any) {
           creds,
           configJson,
         );
+      // Typical logins
       } else {
         const apiUsers = await getApiTestData(configJson, env, step.aids);
         await run_api_test(apiUsers, configJson);
       }
+    // For verifiying vlei (the login step above also verifies teh vlei)
     } else if (step.type == "vlei_verification_test") {
       console.log(`Executing: ${step.description}`);
       const apiUsers = await getApiTestData(configJson, env, step.aids);

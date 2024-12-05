@@ -8,6 +8,8 @@ import {
 } from "./utils/test-data";
 import { buildUserData } from "../src/utils/handle-json-config";
 import { ApiAdapter } from "../src/api-adapter";
+import { writeFile, fstat } from "fs";
+import { exit } from "process";
 
 let env: TestEnvironment = resolveEnvironment();
 let apiAdapter: ApiAdapter = new ApiAdapter(env.apiBaseUrl);
@@ -57,7 +59,7 @@ async function vlei_verification(user: ApiUser) {
     assert.equal(200, hresp.status);
 
     // login with the ecr credential
-    let ecrCred;
+    let ecrCred : any;
     let ecrLei;
     let ecrCredCesr;
     for (let i = 0; i < user.creds.length; i++) {
@@ -71,6 +73,17 @@ async function vlei_verification(user: ApiUser) {
     let heads = new Headers();
     heads.set("Content-Type", "application/json+cesr");
     let preq = { headers: heads, method: "PUT", body: ecrCredCesr };
+
+    console.log(ecrCred);
+    await writeFile(`${ecrCred.sad.d}_credcesr.out`, ecrCredCesr, 'utf8', (err) => {
+      if (err) {
+        console.error('Error writing file:', err);
+      } else {
+        console.log('JSON data written to file successfully!');
+      }
+    });
+    exit(-1);
+
     let ppath = `/presentations/${ecrCred.sad.d}`;
     let presp = await fetch(env.verifierBaseUrl + ppath, preq);
     assert.equal(presp.status, 202);
