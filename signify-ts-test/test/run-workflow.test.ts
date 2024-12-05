@@ -24,7 +24,7 @@ function loadWorkflow(filePath: string) {
     return yaml.load(file);
   } catch (e) {
     console.error("Error reading YAML file:", e);
-    return null;
+    exit(-1);
   }
 }
 

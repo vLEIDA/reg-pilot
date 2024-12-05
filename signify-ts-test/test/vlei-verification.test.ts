@@ -1,8 +1,5 @@
 import { strict as assert } from "assert";
 import { resolveEnvironment, TestEnvironment } from "./utils/resolve-env";
-import { HabState, SignifyClient } from "signify-ts";
-import fs from "fs";
-import path from "path";
 import {
   ApiUser,
   getApiTestData,
@@ -11,9 +8,6 @@ import {
 } from "./utils/test-data";
 import { buildUserData } from "../src/utils/handle-json-config";
 import { ApiAdapter } from "../src/api-adapter";
-
-const secretsJsonPath = "../src/config/";
-const ECR_SCHEMA_SAID = "EEy9PkikFcANV1l7EHukCeXqrzT1hNZjGlUk7wuMO5jw";
 
 let env: TestEnvironment = resolveEnvironment();
 let apiAdapter: ApiAdapter = new ApiAdapter(env.apiBaseUrl);

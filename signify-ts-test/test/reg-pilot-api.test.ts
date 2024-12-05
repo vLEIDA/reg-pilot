@@ -496,6 +496,10 @@ async function revoked_cred_upload_test(
   console.log("ping response", presp);
   assert.equal(presp.status, 200);
 
+  console.log("=== ecr_cred_prev_state.creds[0] ===");
+  console.log(ecr_cred_prev_state.creds[0]);
+  process.exit(-1)
+
   // 1st case. Presenting non revoked credential
   // TODO: update login with new /revoke_credential endpoint call
   await login(
@@ -779,8 +783,8 @@ async function login(user: ApiUser, cred: any, credCesr: any) {
     assert.equal(credJson.length >= 1, true);
     assert.equal(credJson[0].sad.a.i, `${user.ecrAid.prefix}`);
   } else {
-    let ljson = await lresp.json();
     assert.equal(lresp.status, 202);
+    let ljson = await lresp.json();
     assert.equal(
       ljson["msg"],
       `${cred.sad.d} for ${cred.sad.a.i} as issuee is Credential cryptographically valid`,

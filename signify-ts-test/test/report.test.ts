@@ -4,18 +4,12 @@ import * as path from "path";
 import AdmZip from "adm-zip";
 import * as fsExtra from "fs-extra";
 import { generateFileDigest } from "./utils/generate-digest";
-import { Aid, getOrCreateClients } from "./utils/test-util";
+import { getOrCreateClients } from "./utils/test-util";
 import signify, { HabState, Signer, SignifyClient } from "signify-ts";
 import { resolveEnvironment, TestEnvironment } from "./utils/resolve-env";
-import {
-  buildAidData,
-  buildUserData,
-  User,
-} from "../src/utils/handle-json-config";
+import { buildUserData } from "../src/utils/handle-json-config";
 
 import { unknownPrefix } from "../src/constants";
-import { sign } from "crypto";
-import { boolean, re } from "mathjs";
 import { getConfig, getReportGenTestData } from "./utils/test-data";
 
 export const EXTERNAL_MAN_TYPE = "external_manifest";
@@ -28,8 +22,6 @@ let env: TestEnvironment = resolveEnvironment();
 
 const tempDir = "temp_reports";
 const tempPath = path.join(__dirname, tempDir);
-const secretsJsonPath = "../src/config/";
-const tempExtManifestDir = "temp_manifest";
 
 // afterAll(async () => {
 //   deleteReportsDir(tempPath);
