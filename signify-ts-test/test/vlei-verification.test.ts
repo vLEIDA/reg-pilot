@@ -8,7 +8,7 @@ import {
 } from "./utils/test-data";
 import { buildUserData } from "../src/utils/handle-json-config";
 import { ApiAdapter } from "../src/api-adapter";
-import { writeFile, fstat } from "fs";
+import { writeFileSync, fstat } from "fs";
 import { exit } from "process";
 
 let env: TestEnvironment = resolveEnvironment();
@@ -73,19 +73,14 @@ async function vlei_verification(user: ApiUser) {
     let heads = new Headers();
     heads.set("Content-Type", "application/json+cesr");
     let preq = { headers: heads, method: "PUT", body: ecrCredCesr };
-
-    console.log(ecrCred);
-    await writeFile(`${ecrCred.sad.d}_credcesr.out`, ecrCredCesr, 'utf8', (err) => {
-      if (err) {
-        console.error('Error writing file:', err);
-      } else {
-        console.log('JSON data written to file successfully!');
-      }
-    });
-    exit(-1);
-
+    
+    // writeFileSync(`${ecrCred.sad.d}_credcesr.out`, ecrCredCesr, 'utf8');
+  
     let ppath = `/presentations/${ecrCred.sad.d}`;
+
     let presp = await fetch(env.verifierBaseUrl + ppath, preq);
+    console.log(preq);
+    console.log(presp);
     assert.equal(presp.status, 202);
 
     const filingIndicatorsData =
@@ -115,11 +110,16 @@ async function vlei_verification(user: ApiUser) {
 
     heads.set("Content-Type", "application/json");
     let aurl = `${env.verifierBaseUrl}/authorizations/${user.ecrAid.prefix}`;
+    
     let aresp = await user.roleClient.createSignedRequest(user.idAlias, aurl, {
       headers: heads,
       method: "GET",
       body: null,
     });
+    console.log(heads);
+    console.log(aresp);
+    exit(-1);
+
     let authResp = await fetch(aresp);
     assert.equal(200, authResp.status);
     let body = await authResp.json();

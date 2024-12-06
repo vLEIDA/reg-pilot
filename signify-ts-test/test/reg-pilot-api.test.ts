@@ -772,7 +772,7 @@ async function login(user: ApiUser, cred: any, credCesr: any) {
   };
   let lpath = `/login`;
   console.log(env.apiBaseUrl, lpath, lreq);
-  process.exit(-1)
+  // process.exit(-1)
   const lresp = await fetch(env.apiBaseUrl + lpath, lreq);
   console.log("login response", lresp);
   if (isEbaDataSubmitter(cred, user.ecrAid.prefix)) {
